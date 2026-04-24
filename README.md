@@ -1,4 +1,4 @@
-# AgriControl — Edge Node & Backend Layer
+# DyikanAI — Edge Node & Backend Layer
 
 > **DyikanAI Smart Greenhouse System**  
 > University of Central Asia · Naryn, Kyrgyzstan · 2026  
@@ -609,8 +609,8 @@ All 7 enabled services active within **46 seconds** of reboot. No manual interve
 
 **1. Clone the repository**
 ```bash
-git clone <repo-url>
-cd AgriControl-backend
+git clone https://github.com/auuerk/DyikanAI.git
+cd DyikanAI
 ```
 
 **2. Python environment**
@@ -732,37 +732,56 @@ curl -s 'http://localhost:5000/api/actuators/gantt?minutes=60' | python3 -m json
 ## 12. Repository Structure
 
 ```
-AgriControl-backend/
+DyikanAI/                                  ← single repository for the full project
 │
-├── README.md                         ← this file
-├── .env.example                      ← environment variable template (no credentials)
+├── README.md                              ← this file (edge/backend layer focus)
 ├── .gitignore
 │
-├── iot-backend/
-│   ├── mqtt_to_influx.py             ← MQTT→InfluxDB bridge, soil calibration, payload routing
-│   ├── automation_engine.py          ← threshold automation engine v3 (default, starts on boot)
-│   ├── automation_engine_flc.py      ← Mamdani FLC engine (Saadat — on-demand)
-│   ├── filter_engine.py              ← Kalman filter, 5 channels, writes _filt bucket
-│   ├── flask_api.py                  ← REST API v2, 11 endpoints, port 5000
-│   ├── switch_automation.sh          ← mutual exclusion automation engine switcher
-│   └── test_system.py                ← diagnostic script for pipeline verification
+├── backend/                               ← Aruuke — edge node & backend
+│   ├── mqtt_to_influx.py                  ← MQTT→InfluxDB bridge, soil calibration
+│   ├── automation_engine.py               ← threshold automation engine v3 (Saadat)
+│   ├── automation_engine_flc.py           ← Mamdani FLC engine (Saadat)
+│   ├── filter_engine.py                   ← Kalman filter, 5 channels
+│   ├── flask_api.py                       ← REST API v2, 11 endpoints, port 5000
+│   ├── switch_automation.sh               ← mutual exclusion automation switcher
+│   ├── deploy_frost_detector.py           ← XGBoost frost detection (Alfiia)
+│   ├── .env.example                       ← environment variable template
+│   ├── mosquitto/
+│   │   ├── mosquitto.conf                 ← broker config: auth, ACLs, logging
+│   │   └── acls                           ← topic access control list
+│   └── services/
+│       ├── agricontrol-mqtt.service
+│       ├── agricontrol-automation.service
+│       ├── agricontrol-automation-flc.service
+│       ├── agricontrol-filter.service
+│       ├── agricontrol-flask.service
+│       └── frost-detector.service
 │
-├── frost-detector/                   ← Alfiia's frost detection (integrated here)
-│   ├── deploy_frost_detector.py      ← XGBoost inference service
-│   ├── frost-detector.env            ← frost detector configuration
-│   └── frost-detector.service        ← systemd unit file
+├── firmware/                              ← Aruuke — Arduino firmware
+│   └── greenhouse_firmware_v1.3/
+│       └── greenhouse_firmware_v1.3.ino   ← Arduino Mega 2560, firmware v1.3
 │
-├── mosquitto/
-│   ├── mosquitto.conf                ← broker config: auth, ACLs, persistence, logging
-│   └── acls                          ← topic access control list
+├── dashboard/                             ← Alfiia + Aruuke (SensorsPage, AgriControlPage)
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── pages/
+│   │   │   │   ├── SensorsPage.tsx        ← Aruuke — live sensor monitor
+│   │   │   │   ├── AgriControlPage.tsx    ← Aruuke — actuator control panel
+│   │   │   │   ├── DashboardPage.tsx      ← Alfiia
+│   │   │   │   ├── AnalyticsPage.tsx      ← Alfiia
+│   │   │   │   ├── AIChatPage.tsx         ← Alfiia
+│   │   │   │   └── ...
+│   │   │   └── ...
+│   │   ├── api/boxApi.ts
+│   │   ├── types/index.ts
+│   │   └── App.tsx
+│   ├── package.json
+│   ├── vite.config.js
+│   ├── tailwind.config.js
+│   └── index.html
 │
-└── services/
-    ├── agricontrol-mqtt.service
-    ├── agricontrol-automation.service
-    ├── agricontrol-automation-flc.service
-    ├── agricontrol-filter.service
-    ├── agricontrol-flask.service
-    └── frost-detector.service
+└── frost-detector/                        ← Alfiia — frost detection service
+    └── deploy_frost_detector.py
 ```
 
 ---
