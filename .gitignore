@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+frostvenv/
+
+# Node
+dashboard/node_modules/
+dashboard/dist/
+dashboard/.bolt/
+
+# Credentials
+backend/.env
+frost-detector/frost-detector.env
+dashboard/.env
+*.log
+
+# IDE
+.idea/
+*.bak

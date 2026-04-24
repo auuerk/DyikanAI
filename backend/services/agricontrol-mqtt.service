@@ -1,0 +1,17 @@
+[Unit]
+Description=AgriControl MQTT to InfluxDB Bridge
+After=network.target mosquitto.service influxdb.service
+Wants=mosquitto.service influxdb.service
+
+[Service]
+Type=simple
+User=sguser
+WorkingDirectory=/home/sguser/iot-backend
+ExecStart=/home/sguser/iot-backend/venv/bin/python3 -u mqtt_to_influx.py
+Restart=on-failure
+RestartSec=10
+StandardOutput=append:/home/sguser/iot-backend/mqtt.log
+StandardError=append:/home/sguser/iot-backend/mqtt.log
+
+[Install]
+WantedBy=multi-user.target

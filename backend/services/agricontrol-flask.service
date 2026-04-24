@@ -1,0 +1,17 @@
+[Unit]
+Description=AgriControl Flask REST API
+After=network.target mosquitto.service influxdb.service
+Wants=mosquitto.service influxdb.service
+
+[Service]
+Type=simple
+User=sguser
+WorkingDirectory=/home/sguser/iot-backend
+ExecStart=/home/sguser/iot-backend/venv/bin/python3 -u flask_api.py
+Restart=on-failure
+RestartSec=10
+StandardOutput=append:/home/sguser/iot-backend/flask.log
+StandardError=append:/home/sguser/iot-backend/flask.log
+
+[Install]
+WantedBy=multi-user.target

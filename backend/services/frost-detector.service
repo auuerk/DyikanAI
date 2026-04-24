@@ -1,0 +1,16 @@
+[Unit]
+Description=AgriControl Frost Detector
+After=network.target
+
+[Service]
+Type=simple
+User=sguser
+WorkingDirectory=/home/sguser/frost-detector
+ExecStart=/home/sguser/frost-detector/frostvenv/bin/python3 deploy_frost_detector.py --loop
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
