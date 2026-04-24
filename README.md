@@ -761,15 +761,15 @@ DyikanAI/                                  ← single repository for the full pr
 │   └── greenhouse_firmware_v1.3/
 │       └── greenhouse_firmware_v1.3.ino   ← Arduino Mega 2560, firmware v1.3
 │
-├── dashboard/                             ← Alfiia + Aruuke (SensorsPage, AgriControlPage)
+├── dashboard/                             
 │   ├── src/
 │   │   ├── components/
 │   │   │   ├── pages/
 │   │   │   │   ├── SensorsPage.tsx        ← Aruuke — live sensor monitor
-│   │   │   │   ├── AgriControlPage.tsx    ← Aruuke — actuator control panel
-│   │   │   │   ├── DashboardPage.tsx      ← Alfiia
-│   │   │   │   ├── AnalyticsPage.tsx      ← Alfiia
-│   │   │   │   ├── AIChatPage.tsx         ← Alfiia
+│   │   │   │   ├── AgriControlPage.tsx   
+│   │   │   │   ├── DashboardPage.tsx      ← Aruuke — live sensor monitor
+│   │   │   │   ├── AnalyticsPage.tsx      
+│   │   │   │   ├── AIChatPage.tsx         
 │   │   │   │   └── ...
 │   │   │   └── ...
 │   │   ├── api/boxApi.ts
@@ -780,7 +780,7 @@ DyikanAI/                                  ← single repository for the full pr
 │   ├── tailwind.config.js
 │   └── index.html
 │
-└── frost-detector/                        ← Alfiia — frost detection service
+└── frost-detector/                        
     └── deploy_frost_detector.py
 ```
 
